@@ -1,12 +1,10 @@
-version: "3.8"
-
 services:
   postgres:
     image: postgres:17
     container_name: postgres_db
     environment:
-      POSTGRES_USER: seu_usuario
-      POSTGRES_PASSWORD: sua_senha
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
       POSTGRES_DB: locadora_carros
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -25,18 +23,6 @@ services:
     depends_on:
       - postgres
     restart: always
-
-  app:
-    build: .
-    container_name: locadora_app
-    ports:
-      - "8080:8080"
-    depends_on:
-      - postgres
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/locadora_carros
-      SPRING_DATASOURCE_USERNAME: seu_usuario
-      SPRING_DATASOURCE_PASSWORD: sua_senha
 
 volumes:
   postgres_data:

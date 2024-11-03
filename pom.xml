@@ -7,23 +7,51 @@
   <artifactId>locadora-carros</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>locadora-carros</name>
-  <url>http://www.example.com</url>
+     <packaging>war</packaging>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>22</maven.compiler.source>
-    <maven.compiler.target>22</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <file.encoding>UTF-8</file.encoding>
+    <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <vaadin.version>24.5.2</vaadin.version>
   </properties>
-
+   <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-bom</artifactId>
+                <type>pom</type>
+                <scope>import</scope>
+                <version>${vaadin.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
   <dependencies>
+  <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin</artifactId>
+            <version>${vaadin.version}</version>
+        </dependency>
     <!-- PostgreSQL dependency -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>42.7.3</version>
     </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </dependency>
+
+       <!-- Servlet API -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
     <!-- JUnit for testing -->
     <dependency>
       <groupId>junit</groupId>
@@ -34,12 +62,38 @@
   </dependencies>
 
   <build>
+   <defaultGoal>jetty:run</defaultGoal>
     <plugins>
+    <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>11.0.21</version>
+                <configuration>
+                    <!--
+                    Configures automatic reload of Jetty server
+                    (with 2 second timeout) when new classes are compiled
+                    (e.g. by IDEs).
+                    Should be disabeld when using a proper live reload system,
+                    such as JRebel.
+                    If using IntelliJ IDEA with autocompilation, this
+                    might cause lots of unnecessary compilations in the
+                    background. Consider using "0" and trigger restart manually
+                    by hitting enter.
+                    -->
+                    <scan>2</scan>
+                    <systemProperties>
+            <vaadin.frontend.hotdeploy>true</vaadin.frontend.hotdeploy>
+        </systemProperties>
+                </configuration>
+            </plugin>
+
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <release>22</release>
+          <source>17</source>
+          <target>17</target>
+          <release>17</release>
         </configuration>
       </plugin>
       <plugin>
@@ -57,11 +111,8 @@
       <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
-            <version>3.0.0</version>
+            <version>3.5.0</version>
             <configuration>
-                <systemPropertyVariables>
-                    <file.encoding>UTF-8</file.encoding>
-                </systemPropertyVariables>
             </configuration>
         </plugin>
       <plugin>

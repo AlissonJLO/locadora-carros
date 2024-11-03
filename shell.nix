@@ -10,15 +10,18 @@ pkgs.mkShell {
     pkgs.asciinema          # Permmite gravar sessões de terminal para demonstração
     pkgs.asciinema-agg      # Permite gerar GIF animado da sessão de terminal gravada com asciinema
     pkgs.asciinema-scenario # Permite criar demonstração asciinema por meio de script
-    pkgs.jdk22              # OpenJDK 22
+    pkgs.jdk17              # OpenJDK 22
     pkgs.maven              # Maven
     pkgs.docker             # Docker
     pkgs.docker-compose     # Docker Compose
     pkgs.redli              # Redis CLI (Cache)
     pkgs.vscode             # IDE Visual Studio Code run "export NIXPKGS_ALLOW_UNFREE=1" to allow use of it
+    pkgs.nodejs
   ];
   shellHook = ''
     git pull --all
+     export JAVA_HOME=${pkgs.openjdk17}
+    export PATH=${pkgs.openjdk17}/bin:$PATH
 
     code --install-extension bierner.markdown-preview-github-styles@2.1.0       # Para visualizar como HTML o código Markdown (CTRL+SHIFT+V)
     code --install-extension DavidAnson.vscode-markdownlint@0.56.0              # Para verificar a corretude do código Markdown

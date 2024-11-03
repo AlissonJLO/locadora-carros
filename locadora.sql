@@ -1,6 +1,3 @@
--- Criação do banco de dados
-CREATE DATABASE locadora_carros;
-
 -- Criação das tabelas
 
 -- Tabela de Usuário do Sistema

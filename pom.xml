@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://www.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://www.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>br.mt.cba.ufmt.ic.si.alg3</groupId>
   <artifactId>locadora-carros</artifactId>
   <version>1.0-SNAPSHOT</version>
-
   <name>locadora-carros</name>
   <url>http://www.example.com</url>
 
@@ -18,6 +16,13 @@
   </properties>
 
   <dependencies>
+    <!-- PostgreSQL dependency -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.7.3</version>
+    </dependency>
+    <!-- JUnit for testing -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -29,6 +34,13 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>22</release>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.0.2</version>
         <configuration>
@@ -39,6 +51,7 @@
           </archive>
         </configuration>
       </plugin>
+      <!-- Other Maven plugins -->
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
         <version>3.1.0</version>
@@ -46,10 +59,6 @@
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <version>3.0.2</version>
-      </plugin>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>

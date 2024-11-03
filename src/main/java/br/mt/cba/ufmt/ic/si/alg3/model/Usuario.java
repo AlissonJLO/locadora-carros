@@ -1,7 +1,7 @@
 package br.mt.cba.ufmt.ic.si.alg3.model;
 
 public class Usuario {
-  private int id;
+  private Long id;
   private String nome;
   private String login;
   private String senha;
@@ -17,11 +17,11 @@ public class Usuario {
     this.nivelAcesso = nivelAcesso;
   }
 
-  public int getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -56,4 +56,5 @@ public class Usuario {
   public void setNivelAcesso(String nivelAcesso) {
     this.nivelAcesso = nivelAcesso;
   }
+
 }

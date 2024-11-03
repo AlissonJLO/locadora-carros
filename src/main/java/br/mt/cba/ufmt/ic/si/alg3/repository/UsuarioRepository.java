@@ -10,6 +10,7 @@ import java.util.List;
 public class UsuarioRepository {
 
   // Método para inserir um novo usuário
+  // Ajuste para usar Long
   public void inserir(Usuario usuario) {
     String sql = "INSERT INTO usuario (nome, login, senha, nivel_acesso) VALUES (?, ?, ?, ?)";
 
@@ -18,14 +19,14 @@ public class UsuarioRepository {
 
       stmt.setString(1, usuario.getNome());
       stmt.setString(2, usuario.getLogin());
-      stmt.setString(3, usuario.getSenha());
+      stmt.setString(3, usuario.getSenha()); // A senha deve ser hash
       stmt.setString(4, usuario.getNivelAcesso());
 
       stmt.executeUpdate();
 
       try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
         if (generatedKeys.next()) {
-          usuario.setId(generatedKeys.getInt(1));
+          usuario.setId(generatedKeys.getLong(1));
         }
       }
     } catch (SQLException e) {
@@ -44,7 +45,7 @@ public class UsuarioRepository {
       stmt.setString(2, usuario.getLogin());
       stmt.setString(3, usuario.getSenha());
       stmt.setString(4, usuario.getNivelAcesso());
-      stmt.setInt(5, usuario.getId());
+      stmt.setLong(5, usuario.getId());
 
       stmt.executeUpdate();
     } catch (SQLException e) {
@@ -80,7 +81,7 @@ public class UsuarioRepository {
       try (ResultSet rs = stmt.executeQuery()) {
         if (rs.next()) {
           usuario = new Usuario();
-          usuario.setId(rs.getInt("id"));
+          usuario.setId(rs.getLong("id"));
           usuario.setNome(rs.getString("nome"));
           usuario.setLogin(rs.getString("login"));
           usuario.setSenha(rs.getString("senha"));
@@ -105,7 +106,7 @@ public class UsuarioRepository {
 
       while (rs.next()) {
         Usuario usuario = new Usuario();
-        usuario.setId(rs.getInt("id"));
+        usuario.setId(rs.getLong("id"));
         usuario.setNome(rs.getString("nome"));
         usuario.setLogin(rs.getString("login"));
         usuario.setSenha(rs.getString("senha"));
